@@ -7,6 +7,7 @@ appear at the top.
 
   * Add your entries here, remember to credit yourself however you want to be
     credited!
+  * Fix padding in the pretty log formatter. Michal Cichra
 
 ## 1.6.0
 

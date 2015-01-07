@@ -34,12 +34,12 @@ module SSHKit
 
     def test_logging_warn
       pretty << SSHKit::LogMessage.new(Logger::WARN, "Test")
-      assert_equal output.strip, "\e[0;33;49mWARN\e[0m Test".strip
+      assert_equal output.strip, "\e[0;33;49mWARN \e[0m Test".strip
     end
 
     def test_logging_info
       pretty << SSHKit::LogMessage.new(Logger::INFO, "Test")
-      assert_equal output.strip, "\e[0;34;49mINFO\e[0m Test".strip
+      assert_equal output.strip, "\e[0;34;49mINFO \e[0m Test".strip
     end
 
     def test_logging_debug

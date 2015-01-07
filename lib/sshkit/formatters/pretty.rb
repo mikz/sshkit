@@ -3,6 +3,9 @@ module SSHKit
   module Formatter
 
     class Pretty < Abstract
+      LEVEL_NAMES = %w[ DEBUG INFO WARN ERROR FATAL ].freeze
+      LEVEL_FORMATS = %w[ black blue yellow red red ].freeze
+      LEVEL_LENGTH = LEVEL_NAMES.max_by(&:length).length
 
       def write(obj)
         return if obj.verbosity < SSHKit.config.output_verbosity
@@ -51,7 +54,7 @@ module SSHKit
       end
 
       def c
-        @c ||= Color
+        @c ||= ::Color
       end
 
       def uuid(obj)
@@ -59,15 +62,15 @@ module SSHKit
       end
 
       def level(verbosity)
-        c.send(level_formatting(verbosity), level_names(verbosity))
+        c.public_send(level_formatting(verbosity), level_names(verbosity))
       end
 
       def level_formatting(level_num)
-        %w{ black blue yellow red red }[level_num]
+        LEVEL_FORMATS[level_num]
       end
 
       def level_names(level_num)
-        %w{ DEBUG INFO WARN ERROR FATAL }[level_num]
+        LEVEL_NAMES[level_num].ljust(LEVEL_LENGTH)
       end
 
     end
