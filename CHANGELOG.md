@@ -13,6 +13,9 @@ appear at the top.
   * display more accurate string for commands with spaces being output in `Formatter::Pretty`
     [PR #304](https://github.com/capistrano/sshkit/pull/304)
     @steved
+  * allow command map entries to be Procs
+    [PR #310]((https://github.com/capistrano/sshkit/pull/310)
+    @mikz
 
 ## 1.8.1
 
