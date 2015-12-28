@@ -22,14 +22,23 @@ module SSHKit
     end
 
     class PrefixProvider
-      def initialize
-        @storage = CommandHash.new
+      BUILTIN_COMMANDS = Set.new %w{if test time}
+
+      def initialize(value = nil)
+        @storage = CommandHash.new(value || defaults)
       end
 
       def [](command)
-        @storage[command] ||= []
-
         @storage[command]
+      end
+
+      def defaults
+        Hash.new do |hash, command|
+          hash[command] = case command.to_s
+            when ->(cmd) { BUILTIN_COMMANDS.include?(cmd) } then %w{}
+            else %w{/usr/bin/env}
+          end
+        end
       end
     end
 
@@ -60,11 +69,7 @@ module SSHKit
 
     def defaults
       Hash.new do |hash, command|
-        if %w{if test time}.include? command.to_s
-          hash[command] = command.to_s
-        else
-          hash[command] = "/usr/bin/env #{command}"
-        end
+        hash[command] = command.to_s
       end
     end
   end

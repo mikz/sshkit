@@ -72,5 +72,12 @@ module SSHKit
 
       assert_equal map[:rake], 'bundle exec rake2.2'
     end
+
+    def test_relative_setter
+      map = CommandMap.new
+      map[:rake] = 'rake2.2'
+
+      assert_equal map[:rake], '/usr/bin/env rake2.2'
+    end
   end
 end
